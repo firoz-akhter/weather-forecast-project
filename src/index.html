@@ -20,13 +20,13 @@
                 <!-- Search by location button -->
                 <button id="current-location" type="button" class="py-2.5 px-2 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">CurrentLocation</button>
 
-                <!-- <select id="countries" class="w-20 px-1 py-2.5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                <select id="countries" class="w-20 px-1 py-2.5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                     <option selected>History</option>
                     <option value="US">United States</option>
                     <option value="CA">Canada</option>
                     <option value="FR">France</option>
                     <option value="DE">Germany</option>
-                </select> -->
+                </select>
                 
             </form>
             
@@ -42,8 +42,7 @@
                     <span id="current-city" class="font-semibold mt-1 text-gray-500">Mudjimba, QLD</span>
                     <span id="current-date" class="font-semibold mt-1 text-gray-500">Thur, July 4, 2024</span>
                 </div>
-                <!-- <svg class="h-24 w-24 fill-current text-yellow-400" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79zM1 10.5h3v2H1zM11 .55h2V3.5h-2zm8.04 2.495l1.408 1.407-1.79 1.79-1.407-1.408zm-1.8 15.115l1.79 1.8 1.41-1.41-1.8-1.79zM20 10.5h3v2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm-1 4h2v2.95h-2zm-7.45-.96l1.41 1.41 1.79-1.8-1.41-1.41z"/></svg> -->
-                <img class="h-24 w-24 fill-current" height="24" width="24" src="./icons/sun-icon.svg" alt="sunIcon">
+                <img id="current-img" class="h-24 w-24 fill-current" height="24" width="24" src="./icons/sun-icon.svg" alt="sunIcon">
                 
             </div>
             <p id="current-condition" class="flex justify-center mt-4 font-bold text-teal-500 text-xl">Broken Clouds</p>
@@ -71,7 +70,7 @@
             <div class="flex flex-col items-center justify-center max-w-screen-sm bg-white opacity-90 p-5 m-2 mt-10 ring-4 ring-white ring-opacity-45">
                 <span id="forecast-one-day" class="text-2xl font-bold">Fri</span>
                 <!-- icon related to weather -->
-                <img class="h-10 w-10 fill-current mt-2 mb-2" src="./icons/sun-icon-2.svg" alt="sunIcon2">
+                <img id="forecast-one-img" class="h-10 w-10 fill-current mt-2 mb-2" src="./icons/sun-icon-2.svg" alt="sunIcon2">
 
                 <span id="forecast-one-temp" class="font-semibold text-gray-500">Temp: 18°/32°</span>
                 <span id="forecast-one-wind" class="font-semibold text-gray-500">Wind: 2.24m/s</span>
@@ -81,7 +80,7 @@
             <div class="flex flex-col items-center justify-center max-w-screen-sm bg-white opacity-90 p-5 m-2 mt-10 ring-4 ring-white ring-opacity-45">
                 <span id="forecast-two-day" class="text-2xl font-bold">Sat</span>
                 <!-- icon related to weather -->
-                <img class="h-10 w-10 fill-current mt-2 mb-2" src="./icons/sun-icon-2.svg" alt="sunIcon2">
+                <img id="forecast-two-img" class="h-10 w-10 fill-current mt-2 mb-2" src="./icons/sun-icon-2.svg" alt="sunIcon2">
 
                 <span id="forecast-two-temp" class="font-semibold text-gray-500">Temp: 18°/32°</span>
                 <span id="forecast-two-wind" class="font-semibold text-gray-500">Wind: 2.24m/s</span>
@@ -91,7 +90,7 @@
             <div class="flex flex-col items-center justify-center max-w-screen-sm bg-white opacity-90 p-5 m-2 mt-10 ring-4 ring-white ring-opacity-45">
                 <span id="forecast-three-day" class="text-2xl font-bold">Sun</span>
                 <!-- icon related to weather -->
-                <img class="h-10 w-10 fill-current mt-2 mb-2" src="./icons/sun-icon-2.svg" alt="sunIcon2">
+                <img id="forecast-three-img" class="h-10 w-10 fill-current mt-2 mb-2" src="./icons/sun-icon-2.svg" alt="sunIcon2">
 
                 <span id="forecast-three-temp" class="font-semibold text-gray-500">Temp: 18°/32°</span>
                 <span id="forecast-three-wind" class="font-semibold text-gray-500">Wind: 2.24m/s</span>
@@ -101,7 +100,7 @@
             <div class="flex flex-col items-center justify-center max-w-screen-sm bg-white opacity-90 p-5 m-2 mt-10 ring-4 ring-white ring-opacity-45">
                 <span id="forecast-four-day" class="text-2xl font-bold">Mon</span>
                 <!-- icon related to weather -->
-                <img class="h-10 w-10 fill-current mt-2 mb-2" src="./icons/sun-icon-2.svg" alt="sunIcon2">
+                <img id="forecast-four-img" class="h-10 w-10 fill-current mt-2 mb-2" src="./icons/sun-icon-2.svg" alt="sunIcon2">
 
                 <span id="forecast-four-temp" class="font-semibold text-gray-500">Temp: 18°/32°</span>
                 <span id="forecast-four-wind" class="font-semibold text-gray-500">Wind: 2.24m/s</span>
@@ -111,7 +110,7 @@
             <div class="flex flex-col items-center justify-center max-w-screen-sm bg-white opacity-90 p-5 m-2 mt-10 ring-4 ring-white ring-opacity-45">
                 <span id="forecast-five-day" class="text-2xl font-bold">Tue</span>
                 <!-- icon related to weather -->
-                <img class="h-10 w-10 fill-current mt-2 mb-2" src="./icons/sun-icon-2.svg" alt="sunIcon2">
+                <img id="forecast-five-img" class="h-10 w-10 fill-current mt-2 mb-2" src="./icons/sun-icon-2.svg" alt="sunIcon2">
 
                 <span id="forecast-five-temp" class="font-semibold text-gray-500">Temp: 18°/32°</span>
                 <span id="forecast-five-wind" class="font-semibold text-gray-500">Wind: 2.24m/s</span>
