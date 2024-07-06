@@ -94,12 +94,17 @@ currentLocation.addEventListener("click", async function() {
 form.addEventListener("click", async function(e) {
     let selection = e.target;
     if(selection.id === "cities") {
+        if(selection.selectedIndex == 0) {
+            // console.log("first element is selected...")
+            return;
+        }
         let selectedElement = selection.options[selection.selectedIndex];
 
         console.log(selectedElement.innerText)
         let city = selectedElement.innerText;
         let data = await getWeather(city);
         fillingUI(data);
+        selection.selectedIndex = 0;
     }
 })
 
@@ -343,6 +348,11 @@ function updateCityHistoryUI() {
     let select = document.createElement("select")
     select.id = "cities";
     select.classList.add("w-20", "px-1", "py-2.5", "me-2", "mb-2", "text-sm", "font-medium", "text-gray-900", "focus:outline-none", "bg-white", "rounded-lg", "border", "border-gray-200", "hover:bg-gray-100", "hover:text-blue-700", "focus:z-10", "focus:ring-4", "focus:ring-gray-100", "dark:focus:ring-gray-700", "dark:bg-gray-800", "dark:text-gray-400", "dark:border-gray-600", "dark:hover:text-white", "dark:hover:bg-gray-700")
+
+    // the first item in the dropdown menu would be history (to select none);
+    let option = document.createElement("option");
+    option.innerText = "History";
+    select.appendChild(option);
 
     // get array from localStorage
     // run and for loop and fill option inside select

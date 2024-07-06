@@ -558,6 +558,10 @@ video {
   position: relative;
 }
 
+.m-1 {
+  margin: 0.25rem;
+}
+
 .m-2 {
   margin: 0.5rem;
 }
@@ -932,6 +936,10 @@ video {
   transition-property: opacity,margin;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.\[--trigger\:hover\] {
+  --trigger: hover;
 }
 
 .before\:absolute::before {
