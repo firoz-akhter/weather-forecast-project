@@ -48,9 +48,68 @@ searchBtn.addEventListener("click", async function(e) {
     e.preventDefault();
 
     let city = cityInput.value.trim() ;
-    console.log(city);
-    let data = await getWeather(city);
+    
 
+
+    if(city === "") {
+        alert("City name Can't be empty...");
+        return ;
+    }
+    // console.log(city);
+    try {
+        let data = await getWeather(city);
+        fillingUI(data);
+        console.log("Saving city name...")
+    }
+    catch(error) {
+        console.log("Something went wrong while getting weather", error.message);
+        console.log("Please enter city name correctly...");
+        return ;
+    }
+
+
+})
+
+currentLocation.addEventListener("click", async function() {
+
+    try {
+        let city = await getLatAndLong();
+        let data = await getWeather(city);
+        fillingUI(data);
+    }
+    catch(error) {
+        alert(error.message);
+        console.log(error);
+    }
+
+})
+
+function getLatAndLong() {
+    return new Promise((resolve, reject) => {
+        // Check if Geolocation is supported
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                resolve(`${latitude}, ${longitude}`);
+            },
+            (error) => {
+                reject(error);
+            }
+        );
+        } else {
+            reject("Geolocation is not supported by this browser.");
+        }
+    });
+}
+
+
+
+function fillingUI(data) {
+    console.log("filling forecast");
+
+    // 1. update current UI section
     // console.log("current temp:", data.current.temp_c)
     currentTemp.innerText = `${Math.trunc(data.current.temp_c)}°C`;
     currentCity.innerText = `${data.location.name}, ${data.location.country}`;
@@ -63,20 +122,10 @@ searchBtn.addEventListener("click", async function(e) {
     currentWind.innerText = `${data.current.wind_mph} mph`;
     currentHumidity.innerText = `${data.current.humidity}%`;
     currentImg.src = data.current.condition.icon;
-
-    fillForeCast(data);
-
-})
-
-
-
-function fillForeCast(data) {
-    console.log("filling forecast");
-    
     
     // console.log("Logging date", data.forecast.forecastday[0].date);
 
-    // filling forecast One data
+    // 2. filling forecast One data
     let date = new Date(data.forecast.forecastday[0].date);
     let formatedDate = formatDate(date);
     let day = formatedDate.slice(0, 3);   
@@ -88,7 +137,7 @@ function fillForeCast(data) {
     forecastOneWind.innerText = `Wind: ${data.forecast.forecastday[0].day.maxwind_mph} mph`;
     forecastOneHumidity.innerText = `Humidity: ${data.forecast.forecastday[0].day.avghumidity}%`;
    
-    // filling forecast two data
+    // 3. filling forecast two data
     date = new Date(data.forecast.forecastday[1].date);
     formatedDate = formatDate(date);
     day = formatedDate.slice(0, 3);   
@@ -100,7 +149,7 @@ function fillForeCast(data) {
     forecastTwoWind.innerText = `Wind: ${data.forecast.forecastday[1].day.maxwind_mph} mph`;
     forecastTwoHumidity.innerText = `Humidity: ${data.forecast.forecastday[1].day.avghumidity}%`;
 
-    // filling forecast three data
+    // 4. filling forecast three data
     date = new Date(data.forecast.forecastday[2].date);
     formatedDate = formatDate(date);
     day = formatedDate.slice(0, 3);   
@@ -112,7 +161,7 @@ function fillForeCast(data) {
     forecastThreeWind.innerText = `Wind: ${data.forecast.forecastday[2].day.maxwind_mph} mph`;
     forecastThreeHumidity.innerText = `Humidity: ${data.forecast.forecastday[2].day.avghumidity}%`;
 
-    // filling forecast four data
+    // 5. filling forecast four data
     date = new Date(data.forecast.forecastday[3].date);
     formatedDate = formatDate(date);
     day = formatedDate.slice(0, 3);   
@@ -124,7 +173,7 @@ function fillForeCast(data) {
     forecastFourWind.innerText = `Wind: ${data.forecast.forecastday[3].day.maxwind_mph} mph`;
     forecastFourHumidity.innerText = `Humidity: ${data.forecast.forecastday[3].day.avghumidity}%`;
 
-    // filling forecast five data
+    // 6. filling forecast five data
     date = new Date(data.forecast.forecastday[4].date);
     formatedDate = formatDate(date);
     day = formatedDate.slice(0, 3);   
@@ -136,9 +185,6 @@ function fillForeCast(data) {
     forecastFiveWind.innerText = `Wind: ${data.forecast.forecastday[4].day.maxwind_mph} mph`;
     forecastFiveHumidity.innerText = `Humidity: ${data.forecast.forecastday[4].day.avghumidity}%`;
 
-
-
-
 }
 
 
@@ -205,7 +251,7 @@ function fillForeCast(data) {
 
 
 
-
+// Fetching city data
 async function getWeather(city="Varanasi") {
 
     // city = "28.67, 77.22";
@@ -217,17 +263,18 @@ async function getWeather(city="Varanasi") {
     try {
         const response = await fetch(forecastUrl);
         const result = await response.json();
-        console.log(result)
+        // console.log(result)
         return result;
     } catch (error) {
-        console.error("something went wrong while fetching weather", error);
-        return ;
+        console.log("Something went wrong while fetching city data", error.meessage);
+        // return error;
     }
 }
+// running getWeather to see fetched weather data in the console
 getWeather();
 
 
-
+// format data --> ex: Thur, July 4, 2024
 function formatDate(date) {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
