@@ -8,6 +8,7 @@ const currentCondition = document.querySelector("#current-condition")
 const currentWind = document.querySelector("#current-wind")
 const currentHumidity = document.querySelector("#current-humidity");
 const currentImg = document.querySelector("#current-img");
+const form = document.querySelector("#form");
 
 // forecast elements
 const forecastOneDay = document.querySelector("#forecast-one-day");
@@ -48,7 +49,7 @@ searchBtn.addEventListener("click", async function(e) {
     e.preventDefault();
 
     let city = cityInput.value.trim() ;
-    
+
 
 
     if(city === "") {
@@ -60,6 +61,9 @@ searchBtn.addEventListener("click", async function(e) {
         let data = await getWeather(city);
         fillingUI(data);
         console.log("Saving city name...")
+        saveLocalCity(city);
+        updateCityHistoryUI();
+        cityInput.value = "";
     }
     catch(error) {
         console.log("Something went wrong while getting weather", error.message);
@@ -76,6 +80,9 @@ currentLocation.addEventListener("click", async function() {
         let city = await getLatAndLong();
         let data = await getWeather(city);
         fillingUI(data);
+        // save city name to localStorage
+        saveLocalCity(data.location.name);
+        updateCityHistoryUI();
     }
     catch(error) {
         alert(error.message);
@@ -83,6 +90,22 @@ currentLocation.addEventListener("click", async function() {
     }
 
 })
+
+form.addEventListener("click", async function(e) {
+    let selection = e.target;
+    if(selection.id === "cities") {
+        let selectedElement = selection.options[selection.selectedIndex];
+
+        console.log(selectedElement.innerText)
+        let city = selectedElement.innerText;
+        let data = await getWeather(city);
+        fillingUI(data);
+    }
+})
+
+
+
+
 
 function getLatAndLong() {
     return new Promise((resolve, reject) => {
@@ -103,6 +126,8 @@ function getLatAndLong() {
         }
     });
 }
+
+
 
 
 
@@ -286,3 +311,53 @@ function formatDate(date) {
 
     return `${day}, ${month} ${dayDate}, ${year}`;
 }
+
+function saveLocalCity(city) {
+    let cities;
+    if (localStorage.getItem("cities") === null) {
+        cities = [];
+    } else {
+        cities = JSON.parse(localStorage.getItem("cities"));
+    }
+    // students[id] = {name, id, email, contact};
+    if(cities.includes(city.toLowerCase()) == false) {
+        cities.push(city.toLowerCase());
+    }
+    localStorage.setItem("cities", JSON.stringify(cities));
+}
+
+
+// show search city from local storage to User Interface
+function updateCityHistoryUI() {
+    let cities = JSON.parse(localStorage.getItem("cities"));
+    if(cities === null) {
+        console.log("city history is empty...")
+        return ;
+    }
+    if(cities.length === 0) {
+        console.log("cities length is zero...")
+        return ;
+    }
+    console.log(cities)
+
+    let select = document.createElement("select")
+    select.id = "cities";
+    select.classList.add("w-20", "px-1", "py-2.5", "me-2", "mb-2", "text-sm", "font-medium", "text-gray-900", "focus:outline-none", "bg-white", "rounded-lg", "border", "border-gray-200", "hover:bg-gray-100", "hover:text-blue-700", "focus:z-10", "focus:ring-4", "focus:ring-gray-100", "dark:focus:ring-gray-700", "dark:bg-gray-800", "dark:text-gray-400", "dark:border-gray-600", "dark:hover:text-white", "dark:hover:bg-gray-700")
+
+    // get array from localStorage
+    // run and for loop and fill option inside select
+    for(let i=0; i<cities.length; i++) {
+        let option = document.createElement("option");
+        option.innerText = cities[i];
+        select.appendChild(option);
+    }
+
+    let dropDown = document.querySelector(".dropdown");
+    // dropDown.innerText = select;
+    dropDown.innerHTML = "";
+    dropDown.appendChild(select);
+
+}
+
+
+updateCityHistoryUI();
