@@ -68,6 +68,7 @@ searchBtn.addEventListener("click", async function(e) {
     catch(error) {
         console.log("Something went wrong while getting weather", error.message);
         console.log("Please enter city name correctly...");
+        alert("Please enter city name correctly");
         return ;
     }
 
@@ -218,6 +219,7 @@ async function getWeather(city="Varanasi") {
     } catch (error) {
         console.log("Something went wrong while fetching city data", error.message);
         // return error;
+        throw(error);
     }
 }
 // running getWeather to see fetched weather data in the console (wasn't necessary to call here);
